@@ -21,7 +21,23 @@ modules:
     - name: sales-uaa
    parameters:
       memory: 128M
-
+      
+ - name: salesui
+   type: html5
+   path: salesui
+   requires:
+    - name: sales-uaa
+    - name: salesjs_api
+      group: destinations
+      properties:
+        name: salesjs_be
+        url: ~{url}
+        forwardAuthToken: true
+   properties:
+      TENANT_HOST_PATTERN: '^(.*)-<space>-salesui.cfapps.(.*).hana.ondemand.com'
+   parameters:
+      memory: 128M
+      
 resources:
  - name: sales-hdi
    parameters:
